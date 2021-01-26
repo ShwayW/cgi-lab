@@ -23,8 +23,6 @@ import cgi
 import cgitb
 cgitb.enable()
 
-from cgi import escape
-
 __all__ = ['login_page', 'secret_page', 'after_login_incorrect']
 
 
@@ -36,7 +34,7 @@ def login_page():
     return _wrapper(r"""
     <h1> Welcome! </h1>
 
-    <form method="POST" action="login.py">
+    <form method="POST" action="hello.py">
         <label> <span>Username:</span> <input autofocus type="text" name="username"></label> <br>
         <label> <span>Password:</span> <input type="password" name="password"></label>
 
@@ -59,8 +57,8 @@ def secret_page(username=None, password=None):
         <span class="spoilers"> {password}</span>.
         </small>
     </p>
-    """.format(username=escape(username.capitalize()),
-               password=escape(password)))
+    """.format(username=username.capitalize().encode(),
+               password=password.encode()))
 
 
 def after_login_incorrect():
